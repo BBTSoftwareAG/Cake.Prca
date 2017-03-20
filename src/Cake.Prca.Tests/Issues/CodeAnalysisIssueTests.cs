@@ -37,6 +37,17 @@
         }
 
         [Theory]
+        [InlineData(@"foo<bar")]
+        public void Should_Throw_If_File_Path_Is_Invalid(string filePath)
+        {
+            // Given / When
+            var result = Record.Exception(() => new CodeAnalysisIssue(filePath, 100, "Foo", 1, "Bar"));
+
+            // Then
+            result.IsArgumentException("filePath");
+        }
+
+        [Theory]
         [InlineData(@"c:\src\foo.cs")]
         [InlineData(@"/foo")]
         [InlineData(@"\foo")]

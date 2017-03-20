@@ -26,6 +26,11 @@
             message.NotNullOrWhiteSpace(nameof(message));
             rule.NotNull(nameof(rule));
 
+            if (!filePath.IsValidPath())
+            {
+                throw new ArgumentException("Invalid path", nameof(filePath));
+            }
+
             // File path needs to be relative to the repository root.
             this.AffectedFileRelativePath = filePath;
             if (!this.AffectedFileRelativePath.IsRelative)
